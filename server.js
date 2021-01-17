@@ -1,5 +1,6 @@
 const express = require('express');
 const db = require('./connection');
+const passport = require('passport');
 
 const user = require('./routes/api/user');
 const profile = require('./routes/api/profile');
@@ -16,9 +17,9 @@ app.use(express.urlencoded({ extended: true }));
 //connect to database
 db();
 
-app.get('/', (req, res) => {
-    res.send("Hello");
-})
+app.use(passport.initialize());
+
+require('./config/passport.js')(passport);
 
 //routes
 app.use('/api/user', user);
