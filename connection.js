@@ -1,18 +1,16 @@
-const { MongoClient } = require('mongodb');
-
-//MongoDB config
+const mongoose = require('mongoose');
 const uri = require("./config/keys.js").mongoURI;
 
-//connect to database (returns a promise)
-const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true });
+const main = async () => {
+	try {
+		await mongoose.connect(uri, {
+		    useNewUrlParser: true, useUnifiedTopology: true
+		});
 
-async function main() {
-    try {
-        await client.connect();
-        console.log("Connected");
-    } catch(err) {
-        console.error(err);
-    }
+		console.log('MongoDB Connected');
+	} catch (err) {
+		console.error(err.message);
+	}
 };
 
 module.exports = main;
