@@ -1,10 +1,10 @@
-const express = require('express');
-const db = require('./connection');
-const passport = require('passport');
+const express = require("express");
+const db = require("./connection");
+const passport = require("passport");
 
-const user = require('./routes/api/user');
-const profile = require('./routes/api/profile');
-const accomodation = require('./routes/api/accomodation');
+const user = require("./routes/api/user");
+const profile = require("./routes/api/profile");
+const accomodation = require("./routes/api/accomodation");
 
 const app = express();
 
@@ -19,12 +19,12 @@ db();
 
 app.use(passport.initialize());
 
-require('./config/passport.js')(passport);
+require("./config/passport.js")(passport);
 
 //routes
-app.use('/api/user', user);
-app.use('/api/profile', profile);
-app.use('/api/accomodation', accomodation);
+app.use("/api/user", user);
+app.use("/api/profile", profile);
+app.use("/api/accomodation", accomodation);
 
 const port = process.env.PORT || 5000;
 
