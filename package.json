@@ -4,7 +4,9 @@
 	"description": "Review website for student accomodation",
 	"main": "server.js",
 	"scripts": {
-		"start": "nodemon server.js"
+		"server": "nodemon server.js",
+		"client": "npm start --prefix client",
+		"dev": "concurrently \"npm run server\" \"npm run client\""
 	},
 	"author": "Simran Bhadani",
 	"license": "MIT",
@@ -13,7 +15,11 @@
 		"prettier": "2.2.1"
 	},
 	"dependencies": {
+		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
+		"classnames": "^2.2.6",
+		"concurrently": "^5.3.0",
+		"create-react-app": "^4.0.1",
 		"express": "^4.17.1",
 		"jsonwebtoken": "^8.5.1",
 		"mongoose": "^5.11.10",
