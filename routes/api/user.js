@@ -14,13 +14,10 @@ const keys = require("../../config/keys");
 
 //POST request to api/user/register
 router.post("/register", (req, res) => {
-	console.log("1");
 	let errors = validateRegisteration(req.body);
-	console.log(errors);
 	if (errors.valid == "false") {
 		return res.status(400).json(errors);
 	} else {
-		console.log("reached");
 		User.findOne({ email: req.body.email }).then((user) => {
 			if (user) {
 				errors.email = "Email already exists";
@@ -28,7 +25,6 @@ router.post("/register", (req, res) => {
 			}
 			User.findOne({ username: req.body.username }).then((user) => {
 				if (user) {
-					console.log("here");
 					errors.username = "Username already exists";
 					errors.valid = "false";
 				}

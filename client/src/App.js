@@ -5,9 +5,11 @@ import List from "./components/List";
 import Listing from "./components/Listing";
 import Signup from "./components/Signup";
 import Login from "./components/Login";
+import Info from "./components/Info";
 import { Route, Switch, BrowserRouter } from "react-router-dom";
 import setAuthToken from "./auth/setAuthToken";
 import jwt_decode from "jwt-decode";
+import Loading from "./components/Loading";
 
 const PageNotFound = () => <div>404 Page Not Found</div>;
 
@@ -27,7 +29,7 @@ function App() {
 			setUserId(decoded.id);
 			setAuthToken(token);
 		}
-	}, []);
+	},[token]);
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
@@ -39,7 +41,7 @@ function App() {
 				localStorage.clear();
 			}
 		}
-	});
+	}, []);
 
 	return (
 		<BrowserRouter>
@@ -80,17 +82,24 @@ function App() {
 					/>
 					<Route
 						path="/listing"
-						render={() => <Listing authenticated={authenticated} userId={userId}/>}
+						render={() => (
+							<Listing authenticated={authenticated} userId={userId} />
+						)}
 					/>
 					<Route
 						path="/comment"
-						render={() => <Listing authenticated={authenticated} userId={userId}/>}
+						render={() => (
+							<Listing authenticated={authenticated} userId={userId}/>
+						)}
 					/>
+					<Route path="/info" render={() => <Info/>} />
 					<Route component={PageNotFound} />
 				</Switch>
-				{console.log("id" + listingId)}
 			</div>
+			<Loading />
 		</BrowserRouter>
+		
+
 	);
 }
 

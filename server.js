@@ -4,9 +4,7 @@ const passport = require("passport");
 
 const user = require("./routes/api/user");
 const accomodation = require("./routes/api/accomodation");
-const oncampus = require("./routes/api/oncampus");
-
-
+const accomodationdata = require("./routes/api/accomodationdata");
 
 const app = express();
 
@@ -24,8 +22,7 @@ require("./config/passport.js")(passport);
 //routes
 app.use("/api/user", user);
 app.use("/api/accomodation", accomodation);
-app.use("/api/oncampus", oncampus);
-
+app.use("/api/accomodationdata", accomodationdata);
 
 const port = process.env.PORT || 5000;
 

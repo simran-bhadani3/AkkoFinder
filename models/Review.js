@@ -7,11 +7,11 @@ const ReviewSchema = new Schema({
 		type: String,
 		required: true,
 	},
-	user: {
-		type: Schema.Types.ObjectId,
+	username: {
+		type: String,
 		ref: users,
 	},
-	title: {
+	subject: {
 		type: String,
 		required: true,
 	},
@@ -37,8 +37,8 @@ const ReviewSchema = new Schema({
 	},
 	comments: [
 		{
-			user: {
-				type: Schema.Types.ObjectId,
+			username: {
+				type: String,
 				ref: users,
 			},
 			comment: {

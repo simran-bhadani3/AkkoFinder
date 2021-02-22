@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
 class Navbar extends Component {
-
 	onLogout(event) {
 		event.preventDefault();
 		this.props.setAuthenticated(false);
@@ -12,16 +11,19 @@ class Navbar extends Component {
 
 	render() {
 		const isAuthenticated = this.props.authenticated;
-		console.log(this.props.authenticated);
 		const user = this.props.user;
 
 		const loginLinks = (
 			<ul className="nav navbar-right">
 				<li className="nav-item">
-					<Link to="/register">Sign Up</Link>
+					<Link to="/login" className="link-text">
+						Login
+					</Link>
 				</li>
 				<li className="nav-item">
-					<Link to="/login">Login</Link>
+					<Link to="/register" className="link-text">
+						Sign Up
+					</Link>
 				</li>
 			</ul>
 		);
@@ -30,24 +32,23 @@ class Navbar extends Component {
 			<ul className="nav navbar-right">
 				<li className="nav-item">
 					{this.props.user}
-					{console.log(this.props.user)}
 				</li>
 				<li className="nav-item">
-					<a href="#" onClick={this.onLogout.bind(this)}>Logout</a>
+					<a href="#" className="link-text" onClick={this.onLogout.bind(this)}>
+						Logout
+					</a>
 				</li>
 			</ul>
 		);
-		
 
 		return (
 			<nav className="navbar">
 				<div className="container-fluid">
 					<div className="navbar-header">
 						<Link className="navbar-brand" to="/">
-							AkkoFinder
+							AKKOFINDER
 						</Link>
 					</div>
-					{console.log(isAuthenticated)}
 					{isAuthenticated ? logoutLinks : loginLinks}
 				</div>
 			</nav>

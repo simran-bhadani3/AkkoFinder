@@ -12,7 +12,6 @@ module.exports = function validateRegisteration(data) {
 		data.username == null ||
 		(typeof data.username == "string" && data.username.trim().length === 0)
 	) {
-		console.log("here");
 		(errors.username = "Username is required"), (errors.valid = "false");
 	}
 

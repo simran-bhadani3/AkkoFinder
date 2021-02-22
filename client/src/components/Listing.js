@@ -1,20 +1,30 @@
 import React, { Component } from "react";
-import axios from "axios";
-import classnames from "classnames";
 import { Link } from "react-router-dom";
 import { Route, BrowserRouter } from "react-router-dom";
+
+import axios from "axios";
+
+import classnames from "classnames";
+
 import Comment from "./Comment";
+import Loading from "./Loading";
+import StarRatingComponent from "react-star-rating-component";
+
+import { faUser } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Listing extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			loading: true,
-			title: "",
+			subject: "",
 			year: "",
 			review: "",
 			rating: "",
 			errors: {},
+			revLoading: false,
+			existingRevLoading: true,
 		};
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
@@ -27,11 +37,12 @@ class Listing extends Component {
 	}
 
 	onSubmit(event) {
+		this.setState({ revLoading: true });
 		event.preventDefault();
 		const review = {
-			accomodation: sessionStorage.getItem("listingId"),
+			accomodation: sessionStorage.getItem("accId"),
 			id: this.props.userId,
-			title: this.state.title,
+			subject: this.state.subject,
 			year: this.state.year,
 			review: this.state.review,
 			rating: this.state.rating,
@@ -40,152 +51,286 @@ class Listing extends Component {
 		axios
 			.post("/api/accomodation/review", review)
 			.then((res) => {
-				console.log("review submitted");
+				this.setState({ revLoading: false });
+				this.setState({ submitted: true });
 			})
 			.catch((err) => {
-				console.log(err);
-				this.setState({ errors: err });
+				this.setState({ errors: err.response.data });
+				this.setState({ revLoading: false });
+				console.log(this.state.errors);
 			});
 	}
 
 	async componentDidMount() {
-		const data = await axios.get(
-			"/api/oncampus/accomodation/" + sessionStorage.getItem("listingId")
-		);
-		this.setState({ data: data, loading: false });
+		//fetch reviews
 		axios
-			.get("/api/accomodation/reviews/" + sessionStorage.getItem("listingId"))
+			.get("/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
 			.then((res) => {
 				this.setState({ revData: res.data });
+				this.setState({ existingRevLoading: false });
 			})
 			.catch((err) => {
-				console.log(err);
 				this.setState({ errors: err });
+				this.setState({ existingRevLoading: false });
 			});
+		//fetch details
+		axios
+			.get(
+				"/api/accomodationdata/acc-info/" +
+					sessionStorage.getItem("listingId") +
+					"/" +
+					sessionStorage.getItem("accId")
+			)
+			.then((res) => {
+				this.setState({ info: res.data });
+			});
+		this.setState({ loading: false });
 	}
 
 	render() {
 		const errors = this.state.errors;
 		return (
-			<div>
+			<div className="container-fluid">
+				<img
+					src={require("../assets/navBg.jpg").default}
+					alt="nav background"
+					className="nav-bg"
+				></img>
 				{this.state.loading ? (
-					<div> loading </div>
+					<div>
+						<Loading loading={this.state.loading}></Loading>
+					</div>
 				) : (
-					<div> {this.state.data.data[1].name}</div>
+					this.state.info && (
+						<div>
+							<div className="header">
+								<hr />
+								<p className="heading">{this.state.info.name}</p>
+								<hr />
+							</div>
+							<div className="container-div">
+								<div className="infoImgDiv">
+									<img
+										className="infoImg"
+										src={
+											require(`../assets/oncampus/${this.state.info.image}.jpg`)
+												.default
+										}
+										alt={this.state.info.image}
+									></img>
+								</div>
+								<div className="infoText word-wrap">
+									<div className="info-title">About</div>
+									<div className="">
+										<br></br>
+										<p className="heading-text">Name</p>
+										<p className="info-body">{this.state.info.name}</p>
+									</div>
+									<div className="">
+										<br></br>
+										<p className="heading-text">Location</p>
+										<p className="info-body">
+											{this.state.info.address} <br />
+										</p>
+									</div>
+									<div className="">
+										<br></br>
+										<p className="heading-text">Website</p>
+										<a
+											className="info-body"
+											href={this.state.info.website}
+											target="_blank"
+											rel="noreferrer"
+										>
+											{this.state.info.website}
+										</a>
+										<br />
+									</div>
+								</div>
+							</div>
+						</div>
+					)
 				)}
 				{!this.props.authenticated ? (
-					<div>log in</div>
+					<div className="rev-login">
+						<Link to="/login">Log in</Link> to leave a review
+					</div>
 				) : (
 					<div>
-						<form onSubmit={this.onSubmit}>
-							<label htmlFor="title">Subject</label>
-							<br></br>
-							<input
-								type="text"
-								className={classnames("form-control", {
-									"is-invalid": errors.email,
-								})}
-								id="title"
-								name="title"
-								value={this.state.title}
-								onChange={this.onChange}
-							></input>
-							{errors.title && <div>{errors.title}</div>}
-							<br></br>
-							<label htmlFor="year">Year of Stay</label>
-							<br></br>
-							<input
-								type="number"
-								className={classnames("form-control", {
-									"is-invalid": errors.year,
-								})}
-								id="year"
-								name="year"
-								value={this.state.year}
-								onChange={this.onChange}
-							></input>
-							{errors.year && <div>{errors.year}</div>}
-							<br></br>
-							<label htmlFor="review">Review</label>
-							<br></br>
-							<textarea
-								type="text"
-								className={classnames("form-control", {
-									"is-invalid": errors.review,
-								})}
-								id="review"
-								name="review"
-								value={this.state.review}
-								onChange={this.onChange}
-							></textarea>
-							{errors.review && <div>{errors.review}</div>}
-							<br></br>
-							<label htmlFor="title">Rating</label>
-							<br></br>
-							<input
-								type="rating"
-								className={classnames("form-control", {
-									"is-invalid": errors.rating,
-								})}
-								id="rating"
-								name="rating"
-								value={this.state.rating}
-								onChange={this.onChange}
-							></input>
-							{errors.rating && <div>{errors.rating}</div>}
-							<br></br>
-							<input type="submit" className="btn btn-primary" value="Submit" />
-						</form>
+						<div className="rev-button-div">
+							<button
+								className="btn btn-primary rev-button"
+								type="button"
+								data-bs-toggle="collapse"
+								data-bs-target="#reviewForm"
+								aria-expanded="false"
+								aria-controls="reviewForm"
+							>
+								Write a review
+							</button>
+						</div>
+
+						<div className="collapse" id="reviewForm">
+							{this.state.revLoading ? (
+								<div>
+									<Loading loading={this.state.revLoading}></Loading>
+								</div>
+							) : this.state.submitted ? (
+								<div className="rev-login">
+									Review successfully submitted. Refresh page to view.
+								</div>
+							) : (
+								<div className="w-75 card review-card">
+									<form onSubmit={this.onSubmit}>
+										<label htmlFor="subject">Subject</label>
+										<br></br>
+										<input
+											type="text"
+											className={classnames("form-control", {
+												"is-invalid": errors.subject,
+											})}
+											id="subject"
+											name="subject"
+											value={this.state.subject}
+											onChange={this.onChange}
+										></input>
+										{errors.subject && (
+											<div className="error-text">{errors.subject}</div>
+										)}
+										<br></br>
+										<label htmlFor="year">Year of Stay</label>
+										<br></br>
+										<input
+											type="number"
+											className={classnames("form-control", {
+												"is-invalid": errors.year,
+											})}
+											id="year"
+											name="year"
+											value={this.state.year}
+											onChange={this.onChange}
+										></input>
+										{errors.year && (
+											<div className="error-text">{errors.year}</div>
+										)}
+										<br></br>
+										<label htmlFor="review">Review</label>
+										<br></br>
+										<textarea
+											className={classnames("form-control review-textarea", {
+												"is-invalid": errors.review,
+											})}
+											id="review"
+											name="review"
+											value={this.state.review}
+											onChange={this.onChange}
+										></textarea>
+										{errors.review && (
+											<div className="error-text">{errors.review}</div>
+										)}
+										<br></br>
+										<label htmlFor="rating">
+											Rating (on a scale of 1 to 5)
+										</label>
+										<br></br>
+										<input
+											type="rating"
+											className={classnames("form-control", {
+												"is-invalid": errors.rating,
+											})}
+											id="rating"
+											name="rating"
+											value={this.state.rating}
+											onChange={this.onChange}
+										></input>
+										{errors.rating && (
+											<div className="error-text">{errors.rating}</div>
+										)}
+										<br></br>
+										<input
+											type="submit"
+											className="btn btn-primary"
+											value="Submit"
+										/>
+									</form>
+								</div>
+							)}
+						</div>
 					</div>
 				)}
+				<div className="header">
+					<hr />
+					<p className="heading">Reviews</p>
+					<hr />
+				</div>
+
 				<div>
-					{this.state.revData ? (
-						this.state.revData.map((rev) => (
+					{this.state.existingRevLoading ? (
+						<Loading loading={this.state.existingRevLoading}></Loading>
+					) : this.state.revData ? (
+						this.state.revData.reverse().map((rev) => (
 							<div key={rev["_id"]}>
-								Review:
-								<div>{rev.user}</div>
-								<div>{rev.review}</div>
-								<div>{rev.rating}</div>
-								<div>
-									Comments:
-									<br></br>
-									{rev.comments.map((comment) => (
-										<div>
-											{comment.comment}
-											<br></br>
-											{comment.likes}
-											<br></br>
-											{comment.user}
-											<br></br>
-											{comment.date.split("T")[0]}
-											<br></br>
-											{comment.date.split("T")[1].split(".")[0]}
+								<div className="card rev-card">
+									<div className="user-group">
+										<div className="username">
+											<FontAwesomeIcon className="user-icon" icon={faUser} />
+											{rev.username}
 										</div>
-									))}
+										<div className="date">{rev.date.split("T")[0]}</div>
+									</div>
+									<div className="subject">{rev.subject}</div>
+									<div className="star-rating">
+										<StarRatingComponent
+											name="rating"
+											value={rev.rating}
+											editing={false}
+											starColor={"#295e85"}
+											emptyStarColor={"#c0c0c0"}
+										/>
+									</div>
+									<div className="review-body">{rev.review}</div>
+
+									<div>
+										<p className="comments-header">Comments</p>
+										{rev.comments.length < 1 ? <div className = "no-comment">No comments.</div> : null}
+										{rev.comments.map((comment) => (
+											<div className="comment-div">
+												<div className="user-group">
+													<div className="username">
+														<FontAwesomeIcon
+															className="user-icon"
+															icon={faUser}
+														/>
+														{comment.username}
+													</div>
+													<div className="date">
+														{comment.date.split("T")[0]}
+													</div>
+												</div>
+
+												<div className="comment-body">{comment.comment}</div>
+											</div>
+										))}
+									</div>
+									{this.props.authenticated ? (
+										<div>
+											<div id={"commentForm" + rev["_id"]}>
+												<Comment
+													reviewId={rev["_id"]}
+													userId={this.props.userId}
+												/>
+											</div>
+										</div>
+									) : (
+										<div className="rev-comment">
+											<Link to="/login">Log in</Link> to leave a comment.
+										</div>
+									)}
 								</div>
-								{this.props.authenticated ? (
-									<>
-										<BrowserRouter>
-											<Link to="/comment">Leave a comment</Link>
-											<Route
-												path="/comment"
-												render={() => (
-													<Comment
-														reviewId={rev["_id"]}
-														userId={this.props.userId}
-													/>
-												)}
-												exact={true}
-											/>
-										</BrowserRouter>
-									</>
-								) : (
-									<div>Log in to leave a comment</div>
-								)}
 							</div>
 						))
 					) : (
-						<div>no reviews</div>
+						<div className="rev-login">No reviews available.</div>
 					)}
 				</div>
 			</div>
