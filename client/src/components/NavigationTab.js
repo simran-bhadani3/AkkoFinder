@@ -12,7 +12,6 @@ class NavigationTab extends Component {
 	}
 
 	redirect(id) {
-		this.props.setListingId(id);
 		sessionStorage.setItem("listingId", id);
 		this.setState({ redirect: true });
 	}

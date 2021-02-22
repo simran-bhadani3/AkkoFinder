@@ -11,7 +11,6 @@ class Navbar extends Component {
 
 	render() {
 		const isAuthenticated = this.props.authenticated;
-		const user = this.props.user;
 
 		const loginLinks = (
 			<ul className="nav navbar-right">

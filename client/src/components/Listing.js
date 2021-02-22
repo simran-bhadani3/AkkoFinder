@@ -56,7 +56,6 @@ class Listing extends Component {
 			.catch((err) => {
 				this.setState({ errors: err.response.data });
 				this.setState({ revLoading: false });
-				console.log(this.state.errors);
 			});
 	}
 

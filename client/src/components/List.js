@@ -15,14 +15,6 @@ class List extends Component {
 		axios
 			.get("/api/accomodationdata/data")
 			.then((res) => {
-				// console.log(res.data);
-				// this.setState({
-				// 	name: res.data.data[1].name,
-				// 	image: res.data.data[1].image,
-				// 	types: res.data.data[1].types,w
-				// 	id: res.data.data[1].id,
-				// });
-				// console.log(this.state);
 				this.setState({
 					onCampusData: res.data.data.onCampus,
 					offCampusData: res.data.data.offCampus,

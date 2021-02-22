@@ -12,11 +12,6 @@ module.exports = function validateReview(data) {
 		errors.valid = "false";
 	}
 
-
-	// if (typeof data.year != "number") {
-	// 	(errors.year = "Year is invalid"), (errors.valid = "false");
-	// }
-
 	if (
 		data.year == undefined ||
 		data.year == null ||

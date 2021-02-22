@@ -19,7 +19,6 @@ function App() {
 	const [user, setUser] = useState();
 	const [userId, setUserId] = useState();
 	const [authenticated, setAuthenticated] = useState(false);
-	const [listingId, setListingId] = useState();
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
@@ -56,7 +55,7 @@ function App() {
 				<Switch>
 					<Route
 						path="/"
-						render={() => <List setListingId={setListingId} />}
+						render={() => <List/>}
 						exact={true}
 					/>
 					<Route
