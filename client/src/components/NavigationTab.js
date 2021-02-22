@@ -37,7 +37,7 @@ class NavigationTab extends Component {
 								this.props.onData.map((acc) => (
 									<div
 										className="col col-lg-4 col-md-6 col-sm-12 col-xs-12 py-4"
-										id={acc.id}
+										key={acc.id}
 									>
 										<div className="card acc-card h-100 mb-6">
 											<div className="text-center">
@@ -70,64 +70,6 @@ class NavigationTab extends Component {
 								))}
 						</div>
 					</div>
-
-					{/* <div className="container">
-						<div className="row">
-							<div className="col .col-3 text-center">
-								<img
-									className="accImg"
-									src={require(`../assets/oncampus/${url}.jpg`).default}
-									//require(url).default
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-								<p className="imgText">{this.props.data.types}</p>
-								{this.props.setListingId(this.props.data.id)}
-								{sessionStorage.setItem("listingId", this.props.data.id)}
-								<Link to="/listing"> Click here </Link>
-							</div>
-							<div className="col .col-3 text-center">
-								<img
-									className="accImg"
-									src={require("../assets/oncampus/NUS.jpg").default}
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-							</div>
-							<div className="col col-3 text-center">
-								<img
-									className="accImg"
-									src={require("../assets/oncampus/NUS.jpg").default}
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-							</div>
-							<div className="col .col-3 text-center">
-								<img
-									className="accImg"
-									src={require("../assets/oncampus/NUS.jpg").default}
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-							</div>
-							<div className="col col-3 text-center">
-								<img
-									className="accImg"
-									src={require("../assets/oncampus/NUS.jpg").default}
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-							</div>
-							<div className="col col-3 text-center">
-								<img
-									className="accImg"
-									src={require("../assets/oncampus/NUS.jpg").default}
-									alt="NUS"
-								></img>
-								<p className="imgText">{this.props.data.name}</p>
-							</div>
-						</div>
-					</div> */}
 				</div>
 			);
 		} else {

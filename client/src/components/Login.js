@@ -49,6 +49,14 @@ class Login extends Component {
 			});
 	}
 
+	// used to fix warning: "can't perform a React state update on an unmounted component"
+	// need to check again
+	componentWillUnmount() {
+		this.setState = (state, callback) => {
+			return;
+		};
+	}
+
 	render() {
 		const errors = this.state.errors;
 		return (
@@ -72,6 +80,7 @@ class Login extends Component {
 							className={classnames("form-control", {
 								"is-invalid": errors.email,
 							})}
+							autoComplete="email"
 							id="email"
 							name="email"
 							value={this.state.email}
@@ -83,6 +92,7 @@ class Login extends Component {
 						<br></br>
 						<input
 							type="password"
+							autoComplete="current-password"
 							className={classnames("form-control", {
 								"is-invalid": errors.password,
 							})}

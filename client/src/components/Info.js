@@ -46,7 +46,7 @@ class Info extends Component {
 								this.state.data.map((acc) => (
 									<div
 										className="col col-lg-4 col-md-6 col-sm-12 col-xs-12 py-4"
-										id={acc.id}
+										key={acc.id}
 									>
 										<div className="card acc-card h-100 mb-6">
 											<div className="text-center">

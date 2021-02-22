@@ -10,6 +10,7 @@ import { Route, Switch, BrowserRouter } from "react-router-dom";
 import setAuthToken from "./auth/setAuthToken";
 import jwt_decode from "jwt-decode";
 import Loading from "./components/Loading";
+import LoginTwo from "./components/LoginTwo";
 
 const PageNotFound = () => <div>404 Page Not Found</div>;
 

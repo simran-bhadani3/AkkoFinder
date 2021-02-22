@@ -41,7 +41,7 @@ class Comment extends Component {
 		return (
 			<div>
 				{this.state.submitted ? (
-					<div>Comment submitted. Refresh page to view.</div>
+					<div className = "textarea-caption">Comment submitted. Refresh page to view.</div>
 				) : (
 					<form className="comment-form" onSubmit={this.onSubmit}>
 						<div className="textarea-caption">Leave a comment below:</div>

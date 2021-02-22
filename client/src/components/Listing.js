@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
-import { Route, BrowserRouter } from "react-router-dom";
 
 import axios from "axios";
 
@@ -292,9 +291,11 @@ class Listing extends Component {
 
 									<div>
 										<p className="comments-header">Comments</p>
-										{rev.comments.length < 1 ? <div className = "no-comment">No comments.</div> : null}
+										{rev.comments.length < 1 ? (
+											<div className="no-comment">No comments.</div>
+										) : null}
 										{rev.comments.map((comment) => (
-											<div className="comment-div">
+											<div key={comment._id} className="comment-div">
 												<div className="user-group">
 													<div className="username">
 														<FontAwesomeIcon
