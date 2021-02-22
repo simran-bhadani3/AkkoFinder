@@ -29,7 +29,7 @@ function App() {
 			setUserId(decoded.id);
 			setAuthToken(token);
 		}
-	},[token]);
+	}, [token]);
 
 	useEffect(() => {
 		if (localStorage.getItem("token")) {
@@ -81,6 +81,17 @@ function App() {
 						)}
 					/>
 					<Route
+						path="/login2"
+						render={() => (
+							<LoginTwo
+								setToken={setToken}
+								setUser={setUser}
+								setUserId={setUserId}
+								setAuthenticated={setAuthenticated}
+							/>
+						)}
+					/>
+					<Route
 						path="/listing"
 						render={() => (
 							<Listing authenticated={authenticated} userId={userId} />
@@ -89,17 +100,15 @@ function App() {
 					<Route
 						path="/comment"
 						render={() => (
-							<Listing authenticated={authenticated} userId={userId}/>
+							<Listing authenticated={authenticated} userId={userId} />
 						)}
 					/>
-					<Route path="/info" render={() => <Info/>} />
+					<Route path="/info" render={() => <Info />} />
 					<Route component={PageNotFound} />
 				</Switch>
 			</div>
 			<Loading />
 		</BrowserRouter>
-		
-
 	);
 }
 

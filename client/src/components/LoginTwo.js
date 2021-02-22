@@ -1,17 +1,15 @@
 import React, { Component } from "react";
 import axios from "axios";
-import classnames from "classnames";
 import { withRouter } from "react-router-dom";
+import classnames from "classnames";
+import setAuthToken from "../auth/setAuthToken";
 import Loading from "./Loading";
-
-class Signup extends Component {
+class Login extends Component {
 	constructor() {
 		super();
 		this.state = {
-			username: "",
 			email: "",
 			password: "",
-			confirmpassword: "",
 			errors: {},
 			loading: false,
 		};
@@ -29,17 +27,21 @@ class Signup extends Component {
 		this.setState({ loading: true });
 		event.preventDefault();
 		const user = {
-			username: this.state.username,
 			email: this.state.email,
 			password: this.state.password,
-			confirmpassword: this.state.confirmpassword,
 		};
 		axios
-			.post("/api/user/register", user)
+			.post("/api/user/login", user)
 			.then((res) => {
-				this.setState({ user: true });
+				setAuthToken(res.data.token);
+				this.props.setToken(res.data.token);
+				this.props.setUser(res.data.username);
+				this.props.setUserId(res.data.id);
+				this.props.setAuthenticated(true);
+				this.props.history.push("/");
+				localStorage.setItem("user", res.data.username);
+				localStorage.setItem("token", res.data.token);
 				this.setState({ loading: false });
-				this.props.history.push("/login2");
 			})
 			.catch((err) => {
 				this.setState({ errors: err.response.data });
@@ -51,34 +53,18 @@ class Signup extends Component {
 		const errors = this.state.errors;
 		return (
 			<div className="container-fluid">
-				<div className="header">
-					<hr />
-					<p className="heading">Sign Up</p>
-					<hr />
-				</div>
 				<img
 					src={require("../assets/navBg.jpg").default}
 					alt="nav background"
 					className="nav-bg"
 				></img>
+				<div className="header">
+					<hr />
+					<p className="heading">Login</p>
+					<hr />
+				</div>
 				<div className="signup w-75 card signup-card">
 					<form onSubmit={this.onSubmit}>
-						<label htmlFor="username">Username</label>
-						<br></br>
-						<input
-							type="text"
-							className={classnames("form-control", {
-								"is-invalid": errors.username,
-							})}
-							id="username"
-							name="username"
-							value={this.state.username}
-							onChange={this.onChange}
-						></input>
-						{errors.username && (
-							<div className="error-text">{errors.username}</div>
-						)}
-						<br></br>
 						<label htmlFor="email">Email</label>
 						<br></br>
 						<input
@@ -109,23 +95,7 @@ class Signup extends Component {
 							<div className="error-text">{errors.password}</div>
 						)}
 						<br></br>
-						<label htmlFor="confirmpassword">Confirm password</label>
-						<br></br>
-						<input
-							type="password"
-							className={classnames("form-control", {
-								"is-invalid": errors.confirmpassword,
-							})}
-							id="confirmpassword"
-							name="confirmpassword"
-							value={this.state.confirmpassword}
-							onChange={this.onChange}
-						></input>
-						{errors.confirmpassword && (
-							<div className="error-text">{errors.confirmpassword}</div>
-						)}
-						<br></br>
-						<input type="submit" className="btn btn-primary" value="Register" />
+						<input type="submit" className="btn btn-primary" value="Login" />
 						<Loading loading={this.state.loading} />
 					</form>
 				</div>
@@ -134,4 +104,4 @@ class Signup extends Component {
 	}
 }
 
-export default withRouter(Signup);
+export default withRouter(Login);
