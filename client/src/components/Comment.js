@@ -30,7 +30,8 @@ class Comment extends Component {
 		axios
 			.post("/api/accomodation/comment/", comment)
 			.then((res) => {
-				this.setState({ submitted: true });
+				this.setState({ comment: "" });
+				this.props.updateFromChild();
 			})
 			.catch((err) => {
 				this.setState({ errors: err });
@@ -40,24 +41,20 @@ class Comment extends Component {
 	render() {
 		return (
 			<div>
-				{this.state.submitted ? (
-					<div className = "textarea-caption">Comment submitted. Refresh page to view.</div>
-				) : (
-					<form className="comment-form" onSubmit={this.onSubmit}>
-						<div className="textarea-caption">Leave a comment below:</div>
-						<textarea
-							className="comment-textarea"
-							type="text"
-							htmlFor="comment"
-							name="comment"
-							value={this.state.comment}
-							onChange={this.onChange}
-						></textarea>
-						<div>
-							<input type="submit" className="btn btn-primary" value="Submit" />
-						</div>
-					</form>
-				)}
+				<form className="comment-form" onSubmit={this.onSubmit}>
+					<div className="textarea-caption">Leave a comment below:</div>
+					<textarea
+						className="comment-textarea"
+						type="text"
+						htmlFor="comment"
+						name="comment"
+						value={this.state.comment}
+						onChange={this.onChange}
+					></textarea>
+					<div>
+						<input type="submit" className="btn btn-primary" value="Submit" />
+					</div>
+				</form>
 			</div>
 		);
 	}

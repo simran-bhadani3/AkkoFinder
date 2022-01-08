@@ -27,6 +27,7 @@ class Listing extends Component {
 		};
 		this.onChange = this.onChange.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
+		this.updateFromChild = this.updateFromChild.bind(this);
 	}
 
 	onChange(event) {
@@ -52,10 +53,34 @@ class Listing extends Component {
 			.then((res) => {
 				this.setState({ revLoading: false });
 				this.setState({ submitted: true });
+				axios
+					.get("/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
+					.then((res) => {
+						this.setState({ revData: res.data });
+						this.setState({ existingRevLoading: false });
+						this.setState({ subject: "", year: "", review: "", rating: "" });
+					})
+					.catch((err) => {
+						this.setState({ errors: err });
+						this.setState({ existingRevLoading: false });
+					});
 			})
 			.catch((err) => {
 				this.setState({ errors: err.response.data });
 				this.setState({ revLoading: false });
+			});
+	}
+
+	updateFromChild(event) {
+		axios
+			.get("/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
+			.then((res) => {
+				this.setState({ revData: res.data });
+				this.setState({ existingRevLoading: false });
+			})
+			.catch((err) => {
+				this.setState({ errors: err });
+				this.setState({ existingRevLoading: false });
 			});
 	}
 
@@ -173,10 +198,6 @@ class Listing extends Component {
 								<div>
 									<Loading loading={this.state.revLoading}></Loading>
 								</div>
-							) : this.state.submitted ? (
-								<div className="rev-login">
-									Review successfully submitted. Refresh page to view.
-								</div>
 							) : (
 								<div className="w-75 card review-card">
 									<form onSubmit={this.onSubmit}>
@@ -293,7 +314,7 @@ class Listing extends Component {
 										{rev.comments.length < 1 ? (
 											<div className="no-comment">No comments.</div>
 										) : null}
-										{rev.comments.map((comment) => (
+										{rev.comments.reverse().map((comment) => (
 											<div key={comment._id} className="comment-div">
 												<div className="user-group">
 													<div className="username">
@@ -318,6 +339,7 @@ class Listing extends Component {
 												<Comment
 													reviewId={rev["_id"]}
 													userId={this.props.userId}
+													updateFromChild={this.updateFromChild}
 												/>
 											</div>
 										</div>
