@@ -1,7 +1,7 @@
 name: Deploy to Google App Engine
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
 jobs:
   deploy:
     name: Deploying to Google Cloud Platform
