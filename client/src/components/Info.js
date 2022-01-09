@@ -14,6 +14,7 @@ class Info extends Component {
 	}
 
 	redirect(id) {
+		//random comment delete later
 		sessionStorage.setItem("accId", id);
 		this.setState({ redirect: true });
 	}
