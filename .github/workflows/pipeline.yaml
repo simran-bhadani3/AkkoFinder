@@ -20,7 +20,7 @@ jobs:
     - run: npm install
 
 
-    - run: npm install --prefix client && npm run build --prefix client
+    - run: NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client
 
 
     - name: Deploy to Google App Engine

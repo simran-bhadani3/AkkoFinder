@@ -33,7 +33,7 @@ class Navbar extends Component {
 					{this.props.user}
 				</li>
 				<li className="nav-item">
-					<a className="link-text" onClick={this.onLogout.bind(this)}>
+					<a href="#" className="link-text" onClick={this.onLogout.bind(this)}>
 						Logout
 					</a>
 				</li>
