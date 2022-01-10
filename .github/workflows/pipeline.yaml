@@ -19,6 +19,10 @@ jobs:
 
     - run: npm install
 
+
+    - run: npm install --prefix client && npm run build --prefix client
+
+
     - name: Deploy to Google App Engine
       id: deploy
       uses: google-github-actions/deploy-appengine@v0.2.0
