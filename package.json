@@ -4,12 +4,11 @@
 	"description": "Review website for student accomodation",
 	"main": "server.js",
 	"scripts": {
-		"start" : "npm run dev",
+		"start": "npm run dev",
 		"server": "nodemon server.js",
 		"client": "npm start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"heroku-postbuild": 
-			"NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
 	},
 	"author": "Simran Bhadani",
 	"license": "MIT",
@@ -21,6 +20,7 @@
 		"axios": "^0.21.1",
 		"bcryptjs": "^2.4.3",
 		"classnames": "^2.2.6",
+		"client": "./client",
 		"concurrently": "^5.3.0",
 		"create-react-app": "^4.0.1",
 		"express": "^4.17.1",

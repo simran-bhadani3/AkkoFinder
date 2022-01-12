@@ -19,9 +19,8 @@ jobs:
 
     - run: npm install
 
-
     - name: Build Client
-      run: NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client
+      run: NPM_CONFIG_PRODUCTION=false yarn add ./client
       env:
         CI: false
 
