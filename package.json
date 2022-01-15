@@ -4,7 +4,7 @@
 	"description": "Review website for student accomodation",
 	"main": "server.js",
 	"scripts": {
-		"start": "npm run dev",
+		"start": "npm run server",
 		"server": "node server.js",
 		"client": "npm start --prefix client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
