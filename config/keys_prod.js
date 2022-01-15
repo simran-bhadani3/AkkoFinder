@@ -1,7 +1,7 @@
 module.exports = {
-	// mongoURI: process.env.MONGO_URI,
-	// jwtKey: process.env.JWT_KEY,
-	mongoURI:
-		"",
-	jwtKey: "testkey",
+	mongoURI: process.env.MONGO_URI,
+	jwtKey: process.env.JWT_KEY,
+	// mongoURI:
+	// 	"",
+	// jwtKey: "testkey",
 };
