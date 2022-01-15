@@ -20,12 +20,12 @@ jobs:
     - run: npm install
 
     - name: Install Client
-      run: NPM_CONFIG_PRODUCTION=false yarn add ./client
+      run: NPM_CONFIG_PRODUCTION=false npm install ./client
       env:
         CI: false
 
     - name: Build Client
-      run: NPM_CONFIG_PRODUCTION=false yarn build ./client
+      run: NPM_CONFIG_PRODUCTION=false npm build ./client
       env:
         CI: false
 
