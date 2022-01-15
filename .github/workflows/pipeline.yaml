@@ -21,6 +21,7 @@ jobs:
 
     - name: Build Client
       run: NPM_CONFIG_PRODUCTION=false yarn add ./client
+      run: NPM_CONFIG_PRODUCTION=false yarn build ./client
       env:
         CI: false
 
