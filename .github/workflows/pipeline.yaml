@@ -24,6 +24,11 @@ jobs:
       env:
         CI: false
 
+    - name: Set up environment
+      uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
+      env:
+        MONGO_URI: ${{ secrets.MONGO_URI }}
+        JWT:KEY: ${{ secrets.JWT_KEY }}
 
     - name: Deploy to Google App Engine
       id: deploy
