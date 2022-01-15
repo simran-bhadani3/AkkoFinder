@@ -19,21 +19,21 @@ jobs:
 
     - run: npm install
 
-    - name: Install Client
-      run: NPM_CONFIG_PRODUCTION=false npm install ./client
-      env:
-        CI: false
+    # - name: Install Client
+    #   run: NPM_CONFIG_PRODUCTION=false npm install ./client
+    #   env:
+    #     CI: false
 
-    - name: Build Client
-      run: NPM_CONFIG_PRODUCTION=false npm build ./client
-      env:
-        CI: false
+    # - name: Build Client
+    #   run: NPM_CONFIG_PRODUCTION=false npm build ./client
+    #   env:
+    #     CI: false
 
-    - name: Set up environment
-      uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
-      env:
-        MONGO_URI: ${{ secrets.MONGO_URI }}
-        JWT:KEY: ${{ secrets.JWT_KEY }}
+    # - name: Set up environment
+    #   uses: ikuanyshbekov/app-yaml-env-compiler@v1.0
+    #   env:
+    #     MONGO_URI: ${{ secrets.MONGO_URI }}
+    #     JWT:KEY: ${{ secrets.JWT_KEY }}
 
     - name: Deploy to Google App Engine
       id: deploy

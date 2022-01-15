@@ -1,5 +1,6 @@
 runtime: nodejs14
 env: standard
+service: backend
 env_variables:
   MONGO_URI: "mongodb+srv://todo:rG4x90JGGtZKNlKs@cluster0.q6ukq.mongodb.net/db?retryWrites=true&w=majority"
   JWT_KEY: "secret"
