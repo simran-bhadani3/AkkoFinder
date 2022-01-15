@@ -23,13 +23,6 @@ app.use("/api/user", user);
 app.use("/api/accomodation", accomodation);
 app.use("/api/accomodationdata", accomodationdata);
 
-if (process.env.NODE_ENV === "production") {
-	app.use(express.static("client/build"));
-    app.get("*", (req, res) =>
-        res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
-	);
-}
-
 const port = process.env.PORT || 5000;
 
 //connect to port
