@@ -4,6 +4,7 @@ service: backend
 env_variables:
   MONGO_URI: "mongodb+srv://todo:rG4x90JGGtZKNlKs@cluster0.q6ukq.mongodb.net/db?retryWrites=true&w=majority"
   JWT_KEY: "secret"
+  PORT: 5000
 automatic_scaling:
   target_cpu_utilization: 0.65
   min_instances: 1
