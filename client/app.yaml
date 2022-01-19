@@ -9,5 +9,5 @@ handlers:
     static_dir: build
     
   - url: /.*
-  static_files: build/index.html
-  upload: build/index.html
+    static_files: build/index.html
+    upload: build/index.html
