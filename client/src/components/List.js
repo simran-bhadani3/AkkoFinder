@@ -13,7 +13,7 @@ class List extends Component {
 
 	componentDidMount() {
 		axios
-			.get("http://localhost:5000/api/accomodationdata/data")
+			.get("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodationdata/data")
 			.then((res) => {
 				this.setState({
 					onCampusData: res.data.data.onCampus,
