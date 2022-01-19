@@ -20,7 +20,7 @@ class Info extends Component {
 	}
 	async componentDidMount() {
 		const data = await axios.get(
-			"http://localhost:5000/api/accomodationdata/info/" + sessionStorage.getItem("listingId")
+			"https://backend-dot-akkofinder.as.r.appspot.com/api/accomodationdata/info/" + sessionStorage.getItem("listingId")
 		);
 		this.setState({ data: data.data, loading: false });
 	}
