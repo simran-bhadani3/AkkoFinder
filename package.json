@@ -35,5 +35,8 @@
 		"react-promise-tracker": "^2.1.0",
 		"request": "^2.79.0",
 		"validator": "^13.5.2"
+	},
+	"engines": {
+		"node": "^14.15.3"
 	}
 }
