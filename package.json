@@ -37,6 +37,6 @@
 		"validator": "^13.5.2"
 	},
 	"engines": {
-		"node": "^14.15.3"
+		"node": "14.x"
 	}
 }
