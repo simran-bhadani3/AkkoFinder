@@ -2,6 +2,7 @@ const express = require("express");
 const db = require("./connection");
 const passport = require("passport");
 const path = require("path");
+const cors = require('cors')
 
 const user = require("./routes/api/user");
 const accomodation = require("./routes/api/accomodation");
@@ -12,6 +13,8 @@ const app = express();
 app.use(express.json());
 
 app.use(express.urlencoded({ extended: true }));
+
+app.use(cors());
 
 //connect to database
 db();
