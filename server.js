@@ -2,7 +2,7 @@ const express = require("express");
 const db = require("./connection");
 const passport = require("passport");
 const path = require("path");
-const cors = require('cors')
+const cors = require("cors");
 
 const user = require("./routes/api/user");
 const accomodation = require("./routes/api/accomodation");
@@ -22,6 +22,10 @@ db();
 require("./config/passport.js")(passport);
 
 //routes
+app.get("/", (req, res) => {
+	res.send("Hello from App Engine!");
+});
+
 app.use("/api/user", user);
 app.use("/api/accomodation", accomodation);
 app.use("/api/accomodationdata", accomodationdata);
