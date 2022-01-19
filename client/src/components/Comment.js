@@ -28,7 +28,7 @@ class Comment extends Component {
 		};
 
 		axios
-			.post("/api/accomodation/comment/", comment)
+			.post("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodation/comment/", comment)
 			.then((res) => {
 				this.setState({ comment: "" });
 				this.props.updateFromChild();
