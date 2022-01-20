@@ -15,7 +15,7 @@ const LoadingIndicator = (props) => {
 		>
 			<Loader type="ThreeDots" color="#295e85" height="50" width="50" />
 		</div>
-	) : null;
+	) : <div></div>;
 };
 
 export default LoadingIndicator;
