@@ -7,7 +7,7 @@ on:
 
 env:
   PROJECT_ID: ${{ secrets.GCP_PROJECT }}
-  GKE_CLUSTER: autopilot-cluster-1 # TODO: update to cluster name
+  GKE_CLUSTER: cluster-1 # TODO: update to cluster name
   GKE_REGION: asia-southeast1 # TODO: update to cluster zone
   GKE_ZONE: asia-southeast1-a # TODO: update to cluster zone
   DEPLOYMENT_NAME: frontendcluster # TODO: update to deployment name
@@ -37,7 +37,7 @@ jobs:
       # Get the GKE credentials so we can deploy to the cluster
       - uses: google-github-actions/get-gke-credentials@v0.2.1
         with:
-          cluster_name: autopilot-cluster-1
+          cluster_name: cluster-1
           location: asia-southeast1
           credentials: ${{ secrets.GCP_CREDENTIALS }}
 
