@@ -49,12 +49,12 @@ class Listing extends Component {
 			likes: 0,
 		};
 		axios
-			.post("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodation/review", review)
+			.post("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/accomodation/review", review)
 			.then((res) => {
 				this.setState({ revLoading: false });
 				this.setState({ submitted: true });
 				axios
-					.get("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
+					.get("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
 					.then((res) => {
 						this.setState({ revData: res.data });
 						this.setState({ existingRevLoading: false });
@@ -73,7 +73,7 @@ class Listing extends Component {
 
 	updateFromChild(event) {
 		axios
-			.get("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
+			.get("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
 			.then((res) => {
 				this.setState({ revData: res.data });
 				this.setState({ existingRevLoading: false });
@@ -87,7 +87,7 @@ class Listing extends Component {
 	async componentDidMount() {
 		//fetch reviews
 		axios
-			.get("https://backend-dot-akkofinder.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
+			.get("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/accomodation/reviews/" + sessionStorage.getItem("accId"))
 			.then((res) => {
 				this.setState({ revData: res.data });
 				this.setState({ existingRevLoading: false });
@@ -99,7 +99,7 @@ class Listing extends Component {
 		//fetch details
 		axios
 			.get(
-				"https://backend-dot-akkofinder.as.r.appspot.com/api/accomodationdata/acc-info/" +
+				"https://backend-dot-akkofinder-340015.as.r.appspot.com/api/accomodationdata/acc-info/" +
 					sessionStorage.getItem("listingId") +
 					"/" +
 					sessionStorage.getItem("accId")
