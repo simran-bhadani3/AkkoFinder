@@ -31,7 +31,7 @@ class Login extends Component {
 			password: this.state.password,
 		};
 		axios
-			.post("https://backend-dot-akkofinder.as.r.appspot.com/api/user/login", user)
+			.post("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/user/login", user)
 			.then((res) => {
 				setAuthToken(res.data.token);
 				this.props.setToken(res.data.token);
