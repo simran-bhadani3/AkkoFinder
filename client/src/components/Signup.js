@@ -35,7 +35,7 @@ class Signup extends Component {
 			confirmpassword: this.state.confirmpassword,
 		};
 		axios
-			.post("https://backend-dot-akkofinder.as.r.appspot.com/api/user/register", user)
+			.post("https://backend-dot-akkofinder-340015.as.r.appspot.com/api/user/register", user)
 			.then((res) => {
 				this.setState({ user: true });
 				this.setState({ loading: false });
