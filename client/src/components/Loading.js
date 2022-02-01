@@ -2,7 +2,7 @@ import React from "react";
 import Loader from "react-loader-spinner";
 
 //code adapted from https://www.basefactor.com/react-how-to-display-a-loading-indicator-on-fetch-calls
-const LoadingIndicator = (props) => {
+const Loading = (props) => {
 	return props.loading ? (
 		<div
 			style={{
@@ -13,9 +13,9 @@ const LoadingIndicator = (props) => {
 				alignItems: "center",
 			}}
 		>
-// 			<Loader type="ThreeDots" color="#295e85" height="50" width="50" />
+ 			Loading...
 		</div>
 	) : <div></div>;
 };
 
-export default LoadingIndicator;
+export default Loading;
